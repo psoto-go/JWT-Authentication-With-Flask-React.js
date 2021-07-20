@@ -16,3 +16,22 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+
+
+@api.route('/sign_up', methods=['POST'])
+def sign_up_user():
+
+    body_params = request.get_json()
+    name = body_params.get("name",None)
+    last_name = body_params.get("lastName", None)
+    email = body_params.get("email", None)
+    phone_number = body_params.get("phoneNumber", None)
+    password = body_params.get("password", None)
+    city = body_params.get("city", None)
+
+    user1 = User(name=name, last_name=last_name, email=email, phone_number=phone_number, password=password, city=city)
+    db.session.add(user1)
+    db.session.commit()
+
+
+    return jsonify(body_params), 200
