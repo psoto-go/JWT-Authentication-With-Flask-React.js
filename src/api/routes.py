@@ -5,6 +5,8 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
 
 api = Blueprint('api', __name__)
 
@@ -55,4 +57,13 @@ def sign_in_user():
     access_token = create_access_token(identity=user.serialize())
     return jsonify({"access_token":  access_token}), 200
 
-@api.route("")
+@api.route("home", methods=["GET", "PUT"])
+@jwt_required()
+def user_profile():
+    identity = get_jwt_identity()
+    user = current_user(get_jwt_identity())
+    return jsonify(user.serialize())
+
+def current_user(identity):
+  print(identity["id"])
+  return User.query.get(identity["id"])
