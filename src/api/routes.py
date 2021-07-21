@@ -21,7 +21,7 @@ def handle_hello():
     return jsonify(response_body), 200
 
 
-@api.route('/sign_up', methods=['POST'])
+@api.route('/signup', methods=['POST'])
 def sign_up_user():
 
     body_params = request.get_json()
@@ -39,7 +39,7 @@ def sign_up_user():
 
     return jsonify({"msg":  "Usuario creado exitosamente"}), 200
 
-@api.route('/sign_in', methods=['POST'])
+@api.route('/signin', methods=['POST'])
 def sign_in_user():
 
     body_params = request.get_json()
