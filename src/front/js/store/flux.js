@@ -1,3 +1,5 @@
+import { api_url } from "../constants";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -13,7 +15,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			user: null,
+			accesToken: null
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -41,6 +45,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+			signin_user: paramsForm => {
+				const raw = JSON.stringify(paramsForm);
+
+				const requestPost = {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: raw
+				};
+
+				fetch(api_url + "/api/login", requestPost)
+					.then(response => response.json())
+					.then(result => {
+						console.log("bien");
+						setStore({ accesToken: result["access_token"], user: result });
+					})
+					.catch(error => console.log("Error", error));
 			}
 		}
 	};

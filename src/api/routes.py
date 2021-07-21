@@ -39,7 +39,7 @@ def sign_up_user():
 
     return jsonify({"msg":  "Usuario creado exitosamente"}), 200
 
-@api.route('/signin', methods=['POST'])
+@api.route('/login', methods=['POST'])
 def sign_in_user():
 
     body_params = request.get_json()
@@ -55,7 +55,7 @@ def sign_in_user():
         return jsonify("Your credentials are wrong, please try again"), 401
 
     access_token = create_access_token(identity=user.serialize())
-    return jsonify({"access_token":  access_token}), 200
+    return jsonify({"access_token":  access_token, "user": user.serialize()}), 200
 
 @api.route("home", methods=["GET", "PUT"])
 @jwt_required()

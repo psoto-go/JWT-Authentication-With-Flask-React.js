@@ -19,21 +19,7 @@ export const Login = () => {
 	const submitForm = e => {
 		e.preventDefault();
 
-		const raw = JSON.stringify(loginValue);
-
-		const requestPost = {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: raw
-		};
-
-		fetch(api_url + "/api/signup", requestPost)
-			.then(response => response.text())
-			.then(result => {
-				console.log("User Was Created");
-				//history.push("/private");
-			})
-			.catch(error => console.log("Error", error));
+		actions.signin_user(loginValue);
 	};
 
 	return (
