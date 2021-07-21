@@ -3,6 +3,29 @@ import { Context } from "../store/appContext";
 import { useHistory } from "react-router-dom";
 
 export const Signup = () => {
+	const { store, actions } = useContext(Context);
+	const [loginValue, setLoginValue] = useState(firstValue);
+	let history = useHistory();
+
+	const firstValue = {
+		name: "",
+		lastName: "",
+		email: "",
+		password: "",
+		city: "",
+		phoneNumber: ""
+	};
+
+	const changeInput = e => {
+		setLoginValue({ ...loginValue, [e.target.name]: e.target.value });
+	};
+
+	const submitForm = e => {
+		e.preventDefault();
+		actions.register(loginValue);
+		history.push("/");
+	};
+
 	return (
 		<div className="container">
 			<div className="row">
@@ -15,41 +38,63 @@ export const Signup = () => {
 				<div className="col">
 					<div className="container pt-5">
 						<h1 className="text-center p-2">Sign Up</h1>
-						<form>
+						<form onSubmit={submitForm}>
 							<div className="form-group row">
 								<label className="col-sm-2 col-form-label">Name</label>
 								<div className="col-sm-10">
-									<input type="text" className="form-control" />
+									<input type="text" className="form-control" name="name" onChange={changeInput} />
 								</div>
 							</div>
 							<div className="form-group row">
 								<label className="col-sm-2 col-form-label">Last Name</label>
 								<div className="col-sm-10">
-									<input type="text" className="form-control" />
+									<input
+										type="text"
+										className="form-control"
+										name="lastName"
+										onChange={changeInput}
+									/>
 								</div>
 							</div>
 							<div className="form-group row">
 								<label className="col-sm-2 col-form-label">Email</label>
 								<div className="col-sm-10">
-									<input type="email" className="form-control" id="inputEmail4" />
+									<input
+										type="email"
+										className="form-control"
+										id="inputEmail4"
+										name="email"
+										onChange={changeInput}
+									/>
 								</div>
 							</div>
 							<div className="form-group row">
 								<label className="col-sm-2 col-form-label">Password</label>
 								<div className="col-sm-10">
-									<input type="password" className="form-control" id="inputPassword" />
+									<input
+										type="password"
+										className="form-control"
+										id="inputPassword"
+										name="password"
+										onChange={changeInput}
+									/>
 								</div>
 							</div>
 							<div className="form-group row">
 								<label className="col-sm-2 col-form-label">City</label>
 								<div className="col-sm-10">
-									<input type="text" className="form-control" />
+									<input type="text" className="form-control" name="city" onChange={changeInput} />
 								</div>
 							</div>
 							<div className="form-group row">
 								<label className="col-sm-2 col-form-label">Phone Number</label>
 								<div className="col-sm-10">
-									<input type="text" className="form-control" />
+									<input
+										type="tel"
+										className="form-control"
+										name="phoneNumber"
+										onChange={changeInput}
+									/>
 								</div>
 							</div>
 							<button className="btn btn-primary" type="submit">

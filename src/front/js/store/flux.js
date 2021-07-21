@@ -62,6 +62,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({ accesToken: result["access_token"], user: result });
 					})
 					.catch(error => console.log("Error", error));
+			},
+			isUserAuth: () => {
+				const store = getStore();
+				return store.accesToken !== null;
+			},
+			register: paramsForm => {
+				const raw = JSON.stringify(paramsForm);
+
+				const requestPost = {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: raw
+				};
+
+				fetch(api_url + "/api/signup", requestPost)
+					.then(response => response.json())
+					.then(result => {
+						console.log("registrado");
+					})
+					.catch(error => console.log("Error", error));
+			},
+			logOut: () => {
+				const store = getStore();
+				store.user = null;
+				store.accesToken = null;
 			}
 		}
 	};

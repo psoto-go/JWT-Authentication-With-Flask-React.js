@@ -6,6 +6,7 @@ import { api_url } from "../constants";
 export const Login = () => {
 	const { store, actions } = useContext(Context);
 	const [loginValue, setLoginValue] = useState(firstValue);
+	let history = useHistory();
 
 	const firstValue = {
 		email: "",
@@ -21,6 +22,11 @@ export const Login = () => {
 
 		actions.signin_user(loginValue);
 	};
+
+	if (actions.isUserAuth()) {
+		console.log("pri");
+		history.push("/private");
+	}
 
 	return (
 		<div className="container">
