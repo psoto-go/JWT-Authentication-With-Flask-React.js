@@ -19,7 +19,6 @@ export const Login = () => {
 
 	const submitForm = e => {
 		e.preventDefault();
-
 		actions.signin_user(loginValue);
 	};
 
