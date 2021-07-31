@@ -25,8 +25,8 @@ export const Private = () => {
 				<div className="col">
 					<div className="container pt-5">
 						<h1>
-							Bienvenido {store.user ? store.user.user.email : ""}
-							!!
+							{store.user.user ? `Bienvenido  ${store.user.user.email}` : ""}
+							{!store.user.user ? `Error de autentificacion, pruebe de nuevo` : ""}
 						</h1>
 						<button className="btn btn-primary" type="submit" onClick={out}>
 							Logout

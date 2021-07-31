@@ -58,8 +58,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch(api_url + "/api/login", requestPost)
 					.then(response => response.json())
 					.then(result => {
-						console.log("bien");
 						setStore({ accesToken: result["access_token"], user: result });
+						console.log("bien");
+						const store = getStore();
+						console.log(store.user);
 					})
 					.catch(error => console.log("Error", error));
 			},
